@@ -1,7 +1,9 @@
 ﻿
+
 CREATE VIEW [dbo].[vw_budget_transfer_request_records] AS
 SELECT btr.[btr_key]
       ,btr.[btr_guid]
+	  ,btr.[fiscal_year]
 	  ,btr.[title]
       ,btr.[budget_type_key]
 	  ,btr.[jv_doc_id]

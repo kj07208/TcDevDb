@@ -7,6 +7,7 @@
 CREATE PROCEDURE [dbo].[budget_transfer_request_create]
 	-- Add the parameters for the stored procedure here
 	@title varchar(200),
+	@fiscal_year varchar(10),
 	@budget_type_key int,
 	@total_amount money,
 	@explanation varchar(300),
@@ -27,6 +28,7 @@ BEGIN
 
 	INSERT INTO [dbo].[budget_transfer_request]
 		(budget_type_key
+		,fiscal_year
 		,total_amount
 		,explanation
 		,requestor_uni_key
@@ -37,6 +39,7 @@ BEGIN
 		,created_by)
 	VALUES
 		(@budget_type_key
+		,@fiscal_year
 		,@total_amount
 		,@explanation
 		,@requestor_uni_key

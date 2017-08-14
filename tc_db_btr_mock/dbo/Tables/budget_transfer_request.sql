@@ -16,10 +16,13 @@
     [created_by]         INT              NOT NULL,
     [jv_doc_id]          VARCHAR (8)      NULL,
     [jv_status_code]     NCHAR (1)        DEFAULT ('N') NULL,
+    [fiscal_year]        VARCHAR (10)     NULL,
     CONSTRAINT [PK_budgetTransferRequest] PRIMARY KEY CLUSTERED ([btr_key] ASC),
     CONSTRAINT [FK_btr_budget_type] FOREIGN KEY ([budget_type_key]) REFERENCES [dbo].[xref_budget_type] ([budget_type_key]),
     CONSTRAINT [FK_btr_internal_key] FOREIGN KEY ([internal_state_key]) REFERENCES [dbo].[xref_internal_state] ([internal_state_key]),
     CONSTRAINT [FK_btr_life_cycle] FOREIGN KEY ([life_cycle_key]) REFERENCES [dbo].[xref_life_cycle] ([life_cycle_key]),
     CONSTRAINT [FK_btr_uni_key] FOREIGN KEY ([requestor_uni_key]) REFERENCES [dbo].[users] ([uni_key])
 );
+
+
 

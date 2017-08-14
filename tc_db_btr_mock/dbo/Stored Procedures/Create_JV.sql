@@ -48,7 +48,7 @@ BEGIN
 			OPEN transfer_activity_cursor
 PRINT N'>>> Open Cursor';  			
 			FETCH NEXT FROM transfer_activity_cursor INTO @P_acci_code,@P_coas_code,@P_fund_code,@P_orgn_code,@P_acct_code,@P_prog_code,@P_actv_code,@P_locn_code,@P_dr_cr_ind,@P_line_amt,@P_doc_total_amt,@P_change_type,@P_user_id_in,@transfer_activity_key,@activity_btr_key --changed by KJC
-			Update [dbo].[budget_transfer_request] Set jv_status_code = 'P'
+			Update [dbo].[budget_transfer_request] Set jv_status_code = 'P' WHERE btr_key = @btr_key
 PRINT N'>>> Fetch from Next';  			
 			WHILE @@FETCH_STATUS = 0
 				BEGIN
@@ -97,12 +97,12 @@ PRINT N'>>> Fetch from Next';
 			IF @P_status_ind = 'C'
 				BEGIN
 					UPDATE transfer_activity SET jv_complete = 1, complete_jv_status_message = @P_status_message WHERE btr_key = @btr_key
-					Update [dbo].[budget_transfer_request] Set jv_doc_id = @jv_doc_id, jv_status_code = 'C'
+					Update [dbo].[budget_transfer_request] Set jv_doc_id = @jv_doc_id, jv_status_code = 'C' WHERE btr_key = @btr_key
 				END
 			ELSE
 				BEGIN
 					UPDATE transfer_activity SET jv_complete = 0, complete_jv_status_message = @P_status_message WHERE btr_key = @btr_key
-					Update [dbo].[budget_transfer_request] Set jv_doc_id = @jv_doc_id, jv_status_code = 'E'
+					Update [dbo].[budget_transfer_request] Set jv_doc_id = @jv_doc_id, jv_status_code = 'E' WHERE btr_key = @btr_key
 				END
 			CLOSE transfer_activity_cursor;  
 			DEALLOCATE transfer_activity_cursor;
@@ -110,7 +110,7 @@ PRINT N'>>> Fetch from Next';
 	END TRY
 	BEGIN CATCH
 		Print ERROR_MESSAGE()
-		Update [dbo].[budget_transfer_request] Set jv_status_code = 'E'
+		Update [dbo].[budget_transfer_request] Set jv_status_code = 'E' WHERE btr_key = @btr_key
 		IF (SELECT CURSOR_STATUS('global','transfer_activity_cursor')) = 1
 		BEGIN
 			CLOSE transfer_activity_cursor;  

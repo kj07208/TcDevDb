@@ -9,6 +9,7 @@ CREATE PROCEDURE [dbo].[budget_transfer_request_update]
 	-- Add the parameters for the stored procedure here
 	@btr_key int,
 	@title varchar(200),
+	@fiscal_year varchar(10),
 	@budget_type_key int,
 	@total_amount money,
 	@explanation varchar(300),
@@ -29,6 +30,7 @@ BEGIN
 	Update [dbo].[budget_transfer_request]
 	Set	budget_type_key =@budget_type_key
 		,total_amount = @total_amount
+		,fiscal_year = @fiscal_year
 		,explanation = @explanation
 		,requestor_uni_key = @requestor_uni_key
 		,transfer_type_key = @transfer_type_key

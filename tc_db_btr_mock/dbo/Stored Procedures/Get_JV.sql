@@ -18,8 +18,8 @@ BEGIN
 	BEGIN
 		--EXEC ('BEGIN bzebxfr.f_get_jv_id(?); END;',  @jv_doc_id OUTPUT) AT [BANNER-PPRD]
 
-		INSERT INTO [dbo].[mock_jv]  (btr_key_value) VALUES (@jv_doc_id)
-		Select @jv_doc_id = SCOPE_IDENTITY()
+		INSERT INTO [dbo].[mock_jv]  (btr_key_value) VALUES (1)
+		Select @jv_doc_id = (select max(jv_key) from [dbo].[mock_jv])
 
 	END
 	
